@@ -153,6 +153,22 @@
         "remediation",
         "pds"
       ]
+    },
+    {
+      "name": "terraform-conventions",
+      "description": "Enforces PDS/PDC's Must-Have Terraform requirements (remote state, locking, tagging, naming, SSM interface, version pinning, IAM/auth) and Should-Have recommendations, and runs a validator script before calling Terraform work done. Use when writing, editing, or reviewing Terraform in a NASA-PDS repository.",
+      "source": "./static/marketplace",
+      "strict": false,
+      "skills": [
+        "./skills/terraform-conventions"
+      ],
+      "keywords": [
+        "terraform",
+        "infrastructure-as-code",
+        "aws",
+        "iac",
+        "pds"
+      ]
     }
   ]
 }

@@ -58,3 +58,19 @@ Estimated % of code influenced by AI: ___ %
 
 ### Maintenance
 - [ ] **Backward Compatibility:** Confirmed that these changes do not break existing downstream dependencies or API contracts (or that breaking changes are clearly documented).
+
+### Terraform (only if this PR touches a `terraform/` directory)
+<!--
+    `scripts/validate_terraform.py` (see NASA-PDS/pds-terraform-conventions) mechanically
+    checks most of the org's Must-Have Terraform requirements, but it cannot verify the
+    items below — they require a human reviewer's judgment. Check the validator's own
+    output too: it lists these same items as "not statically checked" rather than passing
+    them by default.
+-->
+- [ ] **Validator run:** `scripts/validate_terraform.py` was run against the changed `terraform/` tree and any Must-Have failures were resolved (or are tracked in a reviewed `.tfvalidate-ignore` entry, not silently bypassed).
+- [ ] **Ownership boundary:** Shared/singleton CDS resources (Cognito, CloudFront, org-wide IAM roles, shared security groups) were only added/changed in `pdc-cds-infra`, not duplicated in an application repo.
+- [ ] **Module structure:** `modules/` stays flat and no new module is just a thin wrapper around a single resource.
+- [ ] **SSM interface:** Any new cross-component output is actually published under `/pds/<component>/...` and, if this PR is the consumer side, reads from the correct published parameter rather than another repo's Terraform state.
+- [ ] **Naming intent:** Resource and variable names are semantically meaningful, not just non-redundant (the validator only checks for repeated resource-type substrings).
+- [ ] **Auth at runtime:** Terraform/CI actually authenticates via OIDC or an assumed role when applied — not just "no static key found in this diff."
+- [ ] **Least privilege:** Any new or changed IAM policy attached to the Terraform execution role grants only what this change needs.
