@@ -156,7 +156,7 @@ For each product group, gather:
 
 **Merged PRs** — `pull_requests` where `merged_at` is within the reporting window. Surface only if NOT already represented by a linked issue (check `linked_issues` field — if non-empty and those issues are already captured, skip the PR to avoid duplication). If a PR has no linked issue, surface it as a standalone accomplishment.
 
-**Releases** — `releases` where `published_at` is within the reporting window. Always surface releases as accomplishments (they represent completed milestones).
+**Releases** — `releases` where `published_at` is within the reporting window. Always surface releases as accomplishments (they represent completed milestones). **Skip pre-releases and dev builds**: exclude any release whose `tag` contains `SNAPSHOT`, `-dev`, `-alpha`, `-beta`, or `-rc` (case-insensitive) — these are not shipped deliverables.
 
 **Filter out noise:** Skip issues/PRs with labels: `duplicate`, `invalid`, `wontfix`, `icebox`, `spam`. Skip bot-authored PRs (author contains `[bot]`).
 
@@ -180,7 +180,7 @@ Before generating the report, compute the following counts across all non-ignore
 | *(none of the above)* | Other |
 
 Track per-type counts and per-product-group breakdowns. Also track:
-- **Releases shipped**: count of `releases` items in the window
+- **Releases shipped**: count of `releases` items in the window (excluding SNAPSHOT / -dev / -alpha / -beta / -rc tags)
 - **PRs merged** (standalone, not already counted via linked issue): count
 - **Repositories active**: count of distinct repos with at least one closed issue, merged PR, or release
 - **Themes addressed**: count of distinct parent issues / themes referenced by any closed issue
